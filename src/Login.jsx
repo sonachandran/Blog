@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -15,14 +16,18 @@ const Login = () => {
     try {
       let response = await axios.post('http://localhost:8000/login', data)
       console.log("Response:", response);
+       
+      const token=response.data.token
+        console.log(token);
+        localStorage.setItem('token',token)
+        localStorage.setItem('id',response.data.user._id)
+
       if (response) {
         alert('Login success')
-        navigate('/profile')
-      } else {
-        alert('Login failed')
+        navigate('/createblog')
       }
     } catch (error) {
-      console.log("Login error:", error);
+     alert("login failed")
     }
   }
 
