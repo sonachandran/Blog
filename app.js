@@ -10,6 +10,7 @@ app.use(cors())
 const User = require('./models/User')
 const bcrypt = require('bcrypt')
 const saltrounds = 10;
+const jwt=require('jsonwebtoken')
 app.post('/insert', async (req, res) => {
 
     try {
@@ -33,14 +34,6 @@ app.post('/insert', async (req, res) => {
 
 })
 
-// console.log(req.body); 
-// const newuser = new Users(req.body);
-// console.log("users",newuser)
-// let response = await newuser.save();
-// console.log(response);
-// res.json(response);   
-
-
 
 
 app.post('/login', async (req, res) => {
@@ -58,7 +51,11 @@ app.post('/login', async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
-        res.json({ message: 'Login successful', user });
+        
+
+        const token=jwt.sign({id:user.id,username:user.username},'abc');
+        console.log(token);
+        res.json({user,token});
 
     } catch (error) {
         console.error('Login error:', error);
@@ -66,6 +63,35 @@ app.post('/login', async (req, res) => {
     }
 
 });
+
+const verifyToken = (req, res, next) => {
+    let token = req.headers['authorization'];
+    console.log(token);
+    token=token.split(' ')
+    console.log(token[1]);
+  
+    if (!token[1]) {
+      return res.status(403).json({ message: 'Token is not provided' });
+    }
+  
+    jwt.verify(token[1], 'abc', (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Unauthorized: Invalid token' });
+      }
+      req.decoded = decoded;
+      console.log(req.decoded,'asd');
+      next();
+    });
+  };
+
+
+
+
+app.get('/find',verifyToken,async(req,res)=>{
+    
+    let response=await User.find()
+    res.json(response)
+})
 
 app.listen(8000, () => {
     console.log('connected');
