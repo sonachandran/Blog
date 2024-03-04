@@ -1,0 +1,100 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+.box{
+    height:450px;
+    width: 500px;
+    border: none;
+    background-color: rgb(253, 249, 249);
+    border-radius: 40px ;
+    color: rgb(12, 11, 11);
+    line-height: 40px;    
+    box-shadow:3px 3px 3px rgb(225, 217, 217);  
+    margin-top: 100px;
+}
+input{  
+    border: none;
+    width: 400px;
+    height:30px ;
+    background-color: rgb(163, 186, 186);
+}
+.btn1{
+    margin-left:100px;
+    width:200px;
+    height:40px;
+    margin-top: 10px;
+}
+.flex{
+    display: flex;
+    justify-content: center; 
+   
+    
+}
+.head{
+    /* margin-left:-280px; */
+    margin-top: 260px;
+    line-height: 45px;
+    font-size: 35px;
+   
+}
+
+.bg{   
+    height: 730px;
+    background-image: url('img1.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+   
+}
+.btn2{
+    border-radius: 10px;
+    border: none;
+    height: 45px;
+    width: 180px;
+    margin: 8px;
+    font-size: large;
+    background-color: black;
+    color: white;
+   
+}
+.btn2:hover{
+    background-color: rgb(78, 130, 78);
+    color: rgb(15, 11, 11);
+}
+.background2{
+    margin-top: -28px;
+    background-color: rgb(78, 130, 78);
+    height: 600px;
+    width: auto;
+    color: white;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.font {
+    font-family: "Abril Fatface", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.font2 {
+    font-family: "Protest Riot", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .appnav{
+    padding: 13px;
+  }
+  .bgcolorr{
+    background-color: rgb(216, 227, 230);
+    height: 670px;
+
+  }
+  .text{
+    text-decoration: none;
+    color: black;
+  }
+  .log{
+      padding: 50px;
+      font-size: 20px;  
+      margin-top: 100px;
+      }
