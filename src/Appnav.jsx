@@ -13,9 +13,10 @@ function Appnav() {
 
       <Navbar.Toggle aria-controls="basic-navbar-nav " />
       <Navbar.Collapse id="basic-navbar-nav " className=' justify-content-end '>
-        <Nav style={{ gap:'25px',fontSize:'18px'}} >
+        <Nav style={{ gap:'30px',fontSize:'18px',padding:'20px'}} >
        <Link to='./bloghome' className='text'> <b>HOME</b></Link>  
        <Link to='./registration' className='text'> <b>SIGN IN</b></Link>  
+       <Link to='./blogs' className='text'> <b>BLOGS</b></Link> 
         </Nav>
       </Navbar.Collapse>
     </Container>

@@ -9,8 +9,8 @@ import Appnav from './Appnav';
 import { BrowserRouter,Route,Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Login';
-import Profile from './Createblog';
 import Createblog from './Createblog';
+import Blogs from './Blogs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,8 +24,9 @@ root.render(
          <Route path='/registration'element={<Registration/>}/> 
          <Route path='/login' element={<Login/>}/>
          <Route path='/createblog' element={<Createblog/>}/>
+         <Route path='/blogs' element={<Blogs/>}/>
         
-   </Route>
+    </Route>
         </Route>
       </Routes>
     </BrowserRouter>

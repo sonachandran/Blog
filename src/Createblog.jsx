@@ -1,18 +1,63 @@
-import React from 'react'
 
-const Createblog = () => {
+
+import axios from 'axios';
+import { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+
+
+function Createblog() {
+  const[data,setData]=useState('')
+  const fetchdata=(event)=>{
+    setData({ ...data, [event.target.name]: event.target.value })
+  }
+  
+
+  const handleImageChange = (event) => {
+    setData({ ...data, image: event.target.files[0] }); 
+  }
+
+  const submitdata=async()=>{
+    const userid=localStorage.getItem('id')
+    let newdata=new FormData()
+    newdata.append('title',data.title)
+    newdata.append('description',data.description)
+    newdata.append('image',data.image)
+    newdata.append('userid',userid)
+    let response=await axios.post('http://localhost:8000/insertblog',newdata)
+    console.log(response);
+  }
+ 
   return (
-<div className='bgcolorr'>
-   <h1 className='flex '>Create Your Blog</h1>
-    <div className='box2 input2'>
-   <input type="text" name='title'placeholder='Title' /> <br />
-   <input type="text" name='description' placeholder='Description' /> <br />
-   <input type="file" name='image'/>
-   </div>
+    <>
+      <h2 className='flex mt-3'>Create Your Blog</h2>
+      <div className='flex'>
+      <div className='box3'>
+        <Form >
+          <Form.Group className="mb-5 mt-5" controlId="exampleForm.ControlInput1" >
+            <Form.Control type="text" rows={3} placeholder='Title' onChange={fetchdata}name='title' />
+          </Form.Group>
 
+          <Form.Group className="mb-5" controlId="exampleForm.ControlTextarea1">
+            <Form.Control as="textarea" rows={3} placeholder='Description' onChange={fetchdata} name='description' />
+          </Form.Group>
+
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Upload Your Blog</Form.Label>
+            <Form.Control type="file" name='image'   onChange={handleImageChange}/>
+          </Form.Group>
+        </Form>
+        <div className='flex mt-5'>
+        <button  style={{
+          border: 'none', height: '40px', width: '150px',
+          fontSize: '20px', backgroundColor: 'black', color: 'white', borderRadius: '10px'
+        }} onClick={submitdata} >Submit</button>
+         </div>
  </div>
-  )
+ </div>
+
+    </>
+  );
 }
 
-export default Createblog
+export default Createblog;
 
