@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -11,21 +11,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Login';
 import Createblog from './Createblog';
 import Blogs from './Blogs';
+import Profile from './Profile';
+import Blogdetails from './Blogdetails';
+import Update from './Update';
+const handleRegistrationSuccess = () => {
+  // Function logic to handle successful registration
+  // For example, you can update state or perform any other actions
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route>
+<React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route>
         <Route path='/'element={<Appnav/>}>
          <Route index element={<Bloghome/>}/>
          <Route path='/bloghome' element={<Bloghome/>}/>
-         <Route path='/registration'element={<Registration/>}/> 
+         {/* <Route path='/registration'element={<Registration/>}/>  */}
+         <Route path="/registration" element={<Registration handleRegistrationSuccess={handleRegistrationSuccess} />} />
+
          <Route path='/login' element={<Login/>}/>
          <Route path='/createblog' element={<Createblog/>}/>
          <Route path='/blogs' element={<Blogs/>}/>
-        
+         <Route path='/profile' element={<Profile/>}/>
+         <Route path='/blogdetails' element={<Blogdetails/>}/>  
+         <Route path='/update' element={<Update/>}/>   
     </Route>
         </Route>
       </Routes>

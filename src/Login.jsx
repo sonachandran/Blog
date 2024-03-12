@@ -39,9 +39,9 @@ const Login = () => {
   return (
 
     <>
-     <h2 className='flex mt-5 mb-3'>Login</h2>
+     <h2 className='flex mt-5 mb-3'><b>Login</b></h2>
      <div className='flex'>
-     <div className='box2' >
+     <div style={{height:'500px',width:'700px'}} >
       <Form>
        
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -56,10 +56,10 @@ const Login = () => {
           </Form.Group>
       </Form>
 
-      <div className='flex'>
+      <div className='flex mt-5'>
         <button onClick={submitData} style={{
           border: 'none', height: '40px', width: '150px',
-          fontSize: '20px', backgroundColor: 'black', color: 'white', borderRadius: '10px'
+          fontSize: '20px', backgroundColor: 'green', color: 'white', borderRadius: '10px'
         }}  >Login</button>
       </div>
 

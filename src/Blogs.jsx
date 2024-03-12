@@ -19,7 +19,7 @@ function Blogs() {
 
         <>
            
-   {blog && 
+   {/* {blog && 
    <div className='flex mt-5 gap-5 '>
     {blog.map((item)=>(
         <div className='mt-5'>
@@ -39,7 +39,36 @@ function Blogs() {
     ))}
    
    </div>
-   }
+   } */}
+
+
+
+   
+{blog &&
+       <div>
+       <h3 className='flex mt-4'><b>BLOGS</b></h3>
+        <div className='flex ' style={{gap:'40px',margin:'30px' }}>
+       
+          {blog.map((item) => (
+          <div className='mt-3'>
+            <Card style={{ width: '20rem', }}>
+              <Card.Img variant="top" src={`http://localhost:8000/uploads/${item.image}`} style={{ height: '200px' }} />
+              <Card.Body>
+                <Card.Title>{item.title}</Card.Title>
+                <Card.Text>
+                  {item.description}
+                </Card.Text>
+                
+              </Card.Body>
+            </Card>
+            </div>
+
+          ))}
+        </div>
+        </div>
+      
+      }
+      
         </>
 
 

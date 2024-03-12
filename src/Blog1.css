@@ -9,8 +9,7 @@
     display: flex;
     justify-content: center; 
     flex-wrap: wrap;
-   
-    
+    /* background-color:burlywood; */
 }
 .head{
     /* margin-left:-280px; */
@@ -79,9 +78,10 @@
    
     height: 400px;
     width: 500px;
-    background-color: rgb(9, 10, 9);
+   
     padding: 40px;
     background-color: beige;
+    
     border-radius: 30px;
     padding-top: 70px;
       
@@ -104,4 +104,23 @@
     background-color: beige;
     border-radius: 30px;
 
+}
+.btnn1{
+    background-color: rgb(78, 130, 78);
+    border: none;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    color: white;
+    border-radius:10px
+
+}
+.btnn2{
+    background-color:rgb(238, 21, 21);
+    border: none;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    color: white;
+    border-radius:10px
 }

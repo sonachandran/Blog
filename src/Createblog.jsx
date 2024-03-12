@@ -25,13 +25,14 @@ function Createblog() {
     newdata.append('userid',userid)
     let response=await axios.post('http://localhost:8000/insertblog',newdata)
     console.log(response);
+    alert('success')
   }
  
   return (
     <>
-      <h2 className='flex mt-3'>Create Your Blog</h2>
+      <h2 className='flex mt-4'>Create Your Blog</h2>
       <div className='flex'>
-      <div className='box3'>
+      <div style={{height:'500px',width:"800px"}}>
         <Form >
           <Form.Group className="mb-5 mt-5" controlId="exampleForm.ControlInput1" >
             <Form.Control type="text" rows={3} placeholder='Title' onChange={fetchdata}name='title' />
@@ -47,10 +48,10 @@ function Createblog() {
           </Form.Group>
         </Form>
         <div className='flex mt-5'>
-        <button  style={{
-          border: 'none', height: '40px', width: '150px',
-          fontSize: '20px', backgroundColor: 'black', color: 'white', borderRadius: '10px'
-        }} onClick={submitdata} >Submit</button>
+        <button  onClick={submitdata} style={{
+              border: 'none', height: '40px', width: '150px',
+              fontSize: '20px', backgroundColor: 'green', color: 'white', borderRadius: '10px'
+            }}   >Submit</button>
          </div>
  </div>
  </div>

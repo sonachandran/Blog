@@ -4,6 +4,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import './Blog1.css'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'
+
 
 const Registration = () => {
   const navigate = useNavigate()
@@ -17,19 +19,23 @@ const Registration = () => {
     let response = await axios.post('http://localhost:8000/insert', data)
     console.log(response);
     if(response){
-      alert('registration success')
+      // alert('registration success')
+      alert('Registration success');  
       navigate('/login')
     }
-   
-     
-    
+    else{
+      toast.error('invalid')
+    }
+
+
   
   }
   return (
     <>
-  <h3 className='flex'>Register</h3>
+    <ToastContainer/>
+  <h2 className='flex mt-5'><b>Register</b></h2>
    <div className='flex'>
-    <div className='box'>
+    <div style={{height:'500px',width:'800px'}} >
       <Form>
        
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -58,7 +64,7 @@ const Registration = () => {
       <div className='flex'>
             <button onClick={submitdata} style={{
               border: 'none', height: '40px', width: '150px',
-              fontSize: '20px', backgroundColor: 'black', color: 'white', borderRadius: '10px'
+              fontSize: '20px', backgroundColor: 'green', color: 'white', borderRadius: '10px'
             }}  >Submit </button>
           </div>
       <Link to='/login' className='flex mt-4'><div  style={{fontSize:'18px'}}>Already have an account?</div></Link>  
