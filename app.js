@@ -13,7 +13,8 @@ const bcrypt = require('bcrypt')
 const saltrounds = 10;
 const jwt = require('jsonwebtoken');
 const multer=require('multer')
-const path=require('path')
+const path=require('path');
+const { isBoxedPrimitive } = require('util/types');
 app.use('/uploads',express.static('uploads'));
 
 const storage = multer.diskStorage({
@@ -70,6 +71,104 @@ app.get('/find',async(req,res)=>{
 })
 
 
+app.get('/viewprofile/:userid', async (req, res) => {
+    try {
+        const userId = req.params.userid;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+
+app.get('/viewblog/:userid', async (req, res) => {
+    try{
+        const userId = req.params.userid;
+        console.log(userId,'jkk');
+       
+        const userBlog = await Userblog.findOne({userid : userId});
+        console.log('userr', userBlog);
+        if (!userBlog) {
+            return res.status(404).json({ message: 'User blog not found' });
+        }
+        res.json(userBlog);
+    }
+     catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: 'Server error' });
+     }
+     
+});
+
+app.put('/updateblog/:userid', async (req, res) => {
+    try {
+        const userId = req.params.userid;
+        console.log(userId, 'jkk');
+
+        const userBlog = await Userblog.findOneAndUpdate(
+            { userid: userId},
+            { title: req.body.title, description: req.body.description },
+            {new:true}
+            );
+        console.log('updated',userBlog);
+        if (!userBlog) {
+            return res.status(404).json({ message: 'User blog not found' });
+        }
+        res.json(userBlog);
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+
+app.delete('/deleteblog/:userid', async (req, res) => {
+    try {
+        const userId = req.params.userid;
+        console.log(userId, 'jkk');
+
+        const userBlog = await Userblog.findOneAndDelete(
+            { userid: userId},
+            { title: req.body.title, description: req.body.description },
+            {new:true}
+            );
+        console.log('deleted',userBlog);
+        if (!userBlog) {
+            return res.status(404).json({ message: 'User blog not found' });
+        }
+        res.json(userBlog);
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.get('/viewuserdetails/:userid', async (req, res) => {
+    try{
+        const userId = req.params.userid;
+        console.log(userId,'jkk');
+       
+        const userBlog = await Userblog.find({userid : userId});
+        console.log('userr', userBlog);
+        if (!userBlog) {
+            return res.status(404).json({ message: 'User blog not found' });
+        }
+        res.json(userBlog);
+    }
+     catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: 'Server error' });
+     }
+     
+});
+
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -118,9 +217,7 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-
-app.get('/find', verifyToken, async (req, res) => {
-
+app.get('/find', verifyToken, async (req, res) =>{
     let response = await User.find()
     res.json(response)
 })

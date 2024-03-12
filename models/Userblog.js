@@ -14,13 +14,11 @@ const blogscheme=new mongoose.Schema({
     image:{
         type:String
     },
-    author:{
+    userid:{
         type:mongoose.Types.ObjectId,
         ref:User
-    }
-
-    
-    
+    } 
+   
 })
 
 let Userblog=mongoose.model('blog',blogscheme)
