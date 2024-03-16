@@ -1,5 +1,4 @@
 
-
 import axios from 'axios';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
@@ -22,11 +21,14 @@ function Createblog() {
     newdata.append('title',data.title)
     newdata.append('description',data.description)
     newdata.append('image',data.image)
+    newdata.append('name',data.name)
     newdata.append('userid',userid)
     let response=await axios.post('http://localhost:8000/insertblog',newdata)
-    console.log(response);
+    console.log('response',response);
+  
     alert('success')
   }
+  console.log('data',data);
  
   return (
     <>
@@ -34,10 +36,15 @@ function Createblog() {
       <div className='flex'>
       <div style={{height:'500px',width:"800px"}}>
         <Form >
+
           <Form.Group className="mb-5 mt-5" controlId="exampleForm.ControlInput1" >
             <Form.Control type="text" rows={3} placeholder='Title' onChange={fetchdata}name='title' />
           </Form.Group>
 
+          <Form.Group className="mb-5 mt-5" controlId="exampleForm.ControlInput1" >
+            <Form.Control type="text" rows={3} placeholder='Name' onChange={fetchdata}name='name' />
+          </Form.Group>
+          
           <Form.Group className="mb-5" controlId="exampleForm.ControlTextarea1">
             <Form.Control as="textarea" rows={3} placeholder='Description' onChange={fetchdata} name='description' />
           </Form.Group>

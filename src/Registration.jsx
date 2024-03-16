@@ -16,23 +16,27 @@ const Registration = () => {
   }
 
   const submitdata = async (event) => {
-    let response = await axios.post('http://localhost:8000/insert', data)
-    console.log(response);
-    if(response){
-      // alert('registration success')
-      alert('Registration success');  
-      navigate('/login')
+    event.preventDefault();
+    
+    try {
+        let response = await axios.post('http://localhost:8000/insert', data);
+        console.log(response);
+        
+        if (response.data.emailexists) {
+            alert('Email already registered');
+        } else {
+          localStorage.setItem('token', response.data.token || '');         
+             alert('Registration successful');  
+            // navigate('/login');
+        }
+    } catch (error) {
+        console.error('Error occurred:', error);
     }
-    else{
-      toast.error('invalid')
-    }
+}
 
-
-  
-  }
   return (
     <>
-    <ToastContainer/>
+  <ToastContainer/>
   <h2 className='flex mt-5'><b>Register</b></h2>
    <div className='flex'>
     <div style={{height:'500px',width:'800px'}} >

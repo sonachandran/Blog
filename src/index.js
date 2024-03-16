@@ -14,11 +14,13 @@ import Blogs from './Blogs';
 import Profile from './Profile';
 import Blogdetails from './Blogdetails';
 import Update from './Update';
+import Editprofile from './Editprofile';
+import Detail from './Detail';
+
 const handleRegistrationSuccess = () => {
   // Function logic to handle successful registration
   // For example, you can update state or perform any other actions
 };
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.StrictMode>
@@ -30,13 +32,14 @@ root.render(
          <Route path='/bloghome' element={<Bloghome/>}/>
          {/* <Route path='/registration'element={<Registration/>}/>  */}
          <Route path="/registration" element={<Registration handleRegistrationSuccess={handleRegistrationSuccess} />} />
-
          <Route path='/login' element={<Login/>}/>
          <Route path='/createblog' element={<Createblog/>}/>
          <Route path='/blogs' element={<Blogs/>}/>
          <Route path='/profile' element={<Profile/>}/>
          <Route path='/blogdetails' element={<Blogdetails/>}/>  
-         <Route path='/update' element={<Update/>}/>   
+         <Route path='/update/:id' element={<Update/>}/>   
+         <Route path='/editprofile' element={<Editprofile/>}/>   
+         <Route path='/detail/:id' element={<Detail/>}/>  
     </Route>
         </Route>
       </Routes>

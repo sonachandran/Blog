@@ -44,7 +44,7 @@
 .background2{
     margin-top: -28px;
     background-color: rgb(78, 130, 78);
-    height: 600px;
+    height: 800px;
     width: auto;
     color: white;
     background-repeat: no-repeat;
@@ -123,4 +123,16 @@
     font-size: 18px;
     color: white;
     border-radius:10px
+}
+.box4{
+    height:auto;
+    width:100%;
+    background-color:azure
+   
+}
+.logout{
+    background-color: rgb(20, 12, 12);
+    color: white;
+    border-radius: 15px;
+    font-size: 15px;
 }

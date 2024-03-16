@@ -22,7 +22,6 @@ const Bloghome = () => {
     </div>
     <p className='font2'>Create a beautiful blog that fits your style. <br /> Choose from a selection of easy-to-use templates  all with flexible <br /> layouts and hundreds of background images  or design something new.
 </p>
-   
     
   </div>
   </div>

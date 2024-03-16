@@ -17,7 +17,6 @@ const Login = () => {
   }
 
 
-
   const submitData = async () => {
     try {
       let response = await axios.post('http://localhost:8000/login', data)
@@ -26,7 +25,7 @@ const Login = () => {
       console.log(token);
       localStorage.setItem('token', token)
       localStorage.setItem('id', response.data.user._id)
-
+     
       if (response) {
         alert('Login success')
         navigate('/createblog')
@@ -39,12 +38,12 @@ const Login = () => {
   return (
 
     <>
-     <h2 className='flex mt-5 mb-3'><b>Login</b></h2>
-     <div className='flex'>
-     <div style={{height:'500px',width:'700px'}} >
-      <Form>
+     <h2 className='flex mt-5  mb-3'><b>Login</b></h2>
+     <div className='flex '>
+     <div style={{height:'500px',width:'550px'}} >
+      <Form className='mt-4'>
        
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
             <Form.Label>E-mail</Form.Label>
             <Form.Control type="email" placeholder="name@example.com" name='email' value={data.email} onChange={handleChange} />
           </Form.Group>
@@ -66,11 +65,7 @@ const Login = () => {
       </div>
       </div>
 
-
-
     </>
-
-
 
   )
 }

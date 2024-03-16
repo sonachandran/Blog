@@ -57,10 +57,10 @@ const Profile = () => {
                             marginTop: '10px',
                             border: 'none',
                             height: '40px',
-                            width: '130px',
+                            width: '180px',
                             fontSize: '18px',
                             backgroundColor:'green', color: 'white', borderRadius: '10px'
-                        }}><b>Blog Details</b></button>
+                        }}><b>Your Blog Details</b></button>
 
                   <Link to='/createblog'> <button style={{
                             marginTop: '10px',
@@ -69,7 +69,17 @@ const Profile = () => {
                             width: '180px',
                             fontSize: '18px',
                             backgroundColor:'green', color: 'white', borderRadius: '10px'
-                        }}><b>Create Your Blog</b></button></Link> 
+                        }}><b>Create Your Blog</b></button></Link>
+
+
+                       <Link to='/editprofile'><button style={{
+                            marginTop: '10px',
+                            border: 'none',
+                            height: '40px',
+                            width: '180px',
+                            fontSize: '18px',
+                            backgroundColor:'green', color: 'white', borderRadius: '10px'
+                        }}><b>Edit your Profile</b></button> </Link> 
                     </div>
                     </div>
                    </div>
