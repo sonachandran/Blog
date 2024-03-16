@@ -12,14 +12,14 @@ const Userblog = require('./models/Userblog');
 const bcrypt = require('bcrypt')
 const saltrounds = 10;
 const jwt = require('jsonwebtoken');
-const multer=require('multer')
-const path=require('path');
+const multer = require('multer')
+const path = require('path');
 const { isBoxedPrimitive } = require('util/types');
-app.use('/uploads',express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/') 
+        cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + file.originalname)
@@ -32,10 +32,11 @@ const upload = multer({ storage: storage });
 app.post('/insert', async (req, res) => {
 
     try {
-        // const existingUser = await User.findOne({ email: req.body.email });
-        // if (existingUser) {
-        //     return res.status(400).json({ message: 'User already exists' });
-        // }
+        const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.status(400).json({ emailexists:true, message: 'User already exists' });
+        }
+
         let hashpassword = await bcrypt.hash(req.body.password, saltrounds)
         console.log(hashpassword);
         let newuserr = new User({ ...req.body, password: hashpassword })
@@ -50,11 +51,14 @@ app.post('/insert', async (req, res) => {
     }
 
 })
-app.post('/insertblog',upload.single('image'), async (req, res) => {
+
+app.post('/insertblog', upload.single('image'), async (req, res) => {
     try {
-        const imagepath=req.file ? req.file.filename :''
-        const newblog = new Userblog({...req.body,image:imagepath})
-        console.log('newuser',newblog);
+      
+        const imagepath = req.file ? req.file.filename : ''
+        const newblog = new Userblog({ ...req.body, image: imagepath })
+
+        console.log('newuser', newblog);
         const response = await newblog.save()
         res.json(response)
     }
@@ -64,8 +68,8 @@ app.post('/insertblog',upload.single('image'), async (req, res) => {
     }
 });
 
-app.get('/find',async(req,res)=>{ 
-    let response=await Userblog.find()
+app.get('/find', async (req, res) => {
+    let response = await Userblog.find()
     res.json(response)
 
 })
@@ -76,7 +80,7 @@ app.get('/viewprofile/:userid', async (req, res) => {
         const userId = req.params.userid;
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({message: 'User not found' });
+            return res.status(404).json({ message: 'User not found' });
         }
         res.json(user);
     } catch (error) {
@@ -88,86 +92,103 @@ app.get('/viewprofile/:userid', async (req, res) => {
 
 
 app.get('/viewblog/:userid', async (req, res) => {
-    try{
+    try {
         const userId = req.params.userid;
-        console.log(userId,'jkk');
-       
-        const userBlog = await Userblog.findOne({userid : userId});
+        console.log(userId, 'jkk');
+
+        const userBlog = await Userblog.findOne({ userid: userId });
         console.log('userr', userBlog);
         if (!userBlog) {
             return res.status(404).json({ message: 'User blog not found' });
         }
         res.json(userBlog);
     }
-     catch (error) {
+    catch (error) {
         console.error('Error fetching profile:', error);
         res.status(500).json({ error: 'Server error' });
-     }
-     
+    }
+
 });
 
-app.put('/updateblog/:userid', async (req, res) => {
-    try {
-        const userId = req.params.userid;
-        console.log(userId, 'jkk');
 
-        const userBlog = await Userblog.findOneAndUpdate(
-            { userid: userId},
-            { title: req.body.title, description: req.body.description },
-            {new:true}
-            );
-        console.log('updated',userBlog);
-        if (!userBlog) {
-            return res.status(404).json({ message: 'User blog not found' });
-        }
-        res.json(userBlog);
+app.put('/updateblog/:id', upload.single('image'), async (req, res) => {
+    try {
+        console.log(req.body);
+        const { id } = req.params;
+        const { title, description,name } = req.body;
+
+        const imagepath = req.file ? req.file.filename : ''
+        console.log('gfy',imagepath);
+
+        const updatedBlog = await Userblog.findByIdAndUpdate(id, { title: title, description: description,name:name, image: imagepath }, { new: true });
+        console.log('updated', updatedBlog);
+        res.json(updatedBlog);
+
     } catch (error) {
-        console.error('Error fetching profile:', error);
-        res.status(500).json({ error: 'Server error' });
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
 
-
-app.delete('/deleteblog/:userid', async (req, res) => {
+app.delete('/deleteblog/:id', async (req, res) => {
     try {
-        const userId = req.params.userid;
-        console.log(userId, 'jkk');
+        const id = req.params.id;
+        console.log(id, 'jkk');
 
-        const userBlog = await Userblog.findOneAndDelete(
-            { userid: userId},
-            { title: req.body.title, description: req.body.description },
-            {new:true}
-            );
-        console.log('deleted',userBlog);
-        if (!userBlog) {
-            return res.status(404).json({ message: 'User blog not found' });
+        const deletedBlog = await Userblog.findByIdAndDelete(id);
+        console.log('deleted', deletedBlog);
+        if (!deletedBlog) {
+            return res.status(404).json({ message: 'Blog not found' });
         }
-        res.json(userBlog);
+        res.json(deletedBlog);
     } catch (error) {
-        console.error('Error fetching profile:', error);
+        console.error('Error deleting blog:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });
+
 
 app.get('/viewuserdetails/:userid', async (req, res) => {
-    try{
+    try {
         const userId = req.params.userid;
-        console.log(userId,'jkk');
-       
-        const userBlog = await Userblog.find({userid : userId});
+        console.log(userId, 'jkk');
+
+        const userBlog = await Userblog.find({ userid: userId });
         console.log('userr', userBlog);
         if (!userBlog) {
             return res.status(404).json({ message: 'User blog not found' });
         }
         res.json(userBlog);
     }
-     catch (error) {
+    catch (error) {
         console.error('Error fetching profile:', error);
         res.status(500).json({ error: 'Server error' });
-     }
-     
+    }
+
 });
+
+
+app.put('/updateprofile/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updateprofile = await User.findByIdAndUpdate(id, req.body, { new: true }); // Ensure to pass req.body to update the profile
+        console.log('updated profile', updateprofile);
+        if (!updateprofile) {
+            return res.status(404).json({ message: 'profile not found' });
+        }
+        res.json(updateprofile);
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+app.get('/findblog/:id', async (req, res) => {
+    const id = req.params.id;
+    let response = await Userblog.findById(id)
+    res.json(response)
+})
+
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -217,7 +238,7 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-app.get('/find', verifyToken, async (req, res) =>{
+app.get('/find', verifyToken, async (req, res) => {
     let response = await User.find()
     res.json(response)
 })

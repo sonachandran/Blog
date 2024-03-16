@@ -17,8 +17,11 @@ const blogscheme=new mongoose.Schema({
     userid:{
         type:mongoose.Types.ObjectId,
         ref:User
-    } 
-   
+    } ,
+    name:{
+        type:String,
+        required:true
+    }
 })
 
 let Userblog=mongoose.model('blog',blogscheme)
